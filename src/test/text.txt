@@ -1,0 +1,154 @@
+Git Fast Track 7
+___________________________________________________________________________________________________
+
+[I] = step in IntelliJ
+[C] = step in command line
+
+[I] create a new maven project
+[I]	delete main package
+
+[C] create a local repository at the project level
+	git init
+
+[I] create/edit gitignore:
+		/target/
+		/.idea/
+		*.iml
+
+[C] stage the gitignore
+	git add . or git add file
+
+[C] commit the gitignore
+	git commit -m ""
+
+[I] add dependencies
+
+	<dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.16.1</version>
+        </dependency>
+    </dependencies>
+
+[C] stage & commit the pom.xml
+	git add . or git add file
+	git commit -m ""
+
+Go to GitHub and create new remote repository
+	for now we are creating under our own account, but these can be created in the same way under an organization
+
+[C] define the remote
+	git remote add origin url
+
+[C] push and set upstream branch
+	git push -u origin master
+
+--------------------------------------------------------------------
+
+Upstream flow
+
+[C] check which branch you are on
+	git branch
+
+[C] create the develop branch
+	git branch develop
+
+[C] checkout to the new develop branch
+	git checkout develop
+
+[C] create the develop branch on the remote
+	git push -u origin develop
+
+[C] create a new name branch
+	git branch name
+
+[T] checkout to the new branch
+	git checkout name
+
+[I] create the main packages: pages, runners, step_definitions, utilities
+
+[I] create a file in each package, commit and push
+		pages: HomePage
+		runners: CukesRunner
+		step_definitions: Hooks
+		utilities: Driver
+
+[C]		git add .
+ 		git commit -m ""
+ 		git push -u origin name
+
+go to GitHub
+	create a pull request and merge from name to develop
+
+--------------------------------------------------------------------
+
+Downstream flow
+
+go to GitHub
+	make sure you are on the develop branch
+	go to one of the packages
+	edit a file directly on GitHub and commit changes
+
+[C] fetch to see if there is any changes
+	git fetch
+
+[C] check which branch you are on
+	git branch
+
+[C] checkout to the develop branch
+	git checkout develop
+
+[C] check the log or use IntelliJ log
+	git log origin/develop
+
+[C] update local develop
+	git pull
+
+	-> if the upstream branch is not tracked:  git pull origin develop
+
+[C] merge the changes into the name branch
+	git checkout name
+	git merge develop
+
+- OR - at this step rebase instead of merge
+	git rebase develop
+
+	-> rebase will be useful when we have commits on the name branch. when we rebase the new changes are applied and the commits that already existed will be moved on top of the new commits
+
+--------------------------------------------------------------------
+
+Other commands:
+
+clone git project
+	git clone link
+
+unstage a file
+	git restore --staged file
+
+reset to a specific commit
+	git reset --hard address
+	git reset address (soft reset)
+
+untrack a file or folder
+	git rm -r --cached file/folder
+
+define upstream branch
+	git branch –u origin/branchName
+
+--------------------------------------------------------------------
+
+Environment variables in IntelliJ
+
+Click the run button and select: Modify Run Configuration
+
+Add the Environment variables
+	KEY=value;
+
+Access environment variables with:
+	System.getenv("key_here")
+
+--------------------------------------------------------------------
+
+
+
